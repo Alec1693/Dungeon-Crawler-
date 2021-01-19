@@ -1,7 +1,7 @@
 class GameBoard:
     def __init__(self,board,currentIndex,pogIndex,pogMessage):
         self._board = board
-        self._cPosition = cPosition
+        self._currentIndex = currentIndex
         self._pogIndex = pogIndex
         self._pogMessage = pogMessage
 
