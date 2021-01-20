@@ -1,6 +1,7 @@
 import sys
 from NPC import NPC
 from GameBoard import GameBoard
+from random import randint
 
 def main():
     validInput = False
@@ -146,7 +147,24 @@ def ShowBoard(board):
     "\n" + "\t" + str(board[2][0]) + " " + str(board[2][1]) + " " + str(board[2][2]) + " " + str(board[2][3]) + " " + str(board[2][4]) + " " + str(board[2][5]) + " " + str(board[2][6]) + " " + str(board[2][7]) + " " + str(board[2][8]) + " " + str(board[2][9]) +
     "\n" + "\t" + str(board[1][0]) + " " + str(board[1][1]) + " " + str(board[1][2]) + " " + str(board[1][3]) + " " + str(board[1][4]) + " " + str(board[1][5]) + " " + str(board[1][6]) + " " + str(board[1][7]) + " " + str(board[1][8]) + " " + str(board[1][9]) +
     "\n" + "\t" + str(board[0][0]) + " " + str(board[0][1]) + " " + str(board[0][2]) + " " + str(board[0][3]) + " " + str(board[0][4]) + " " + str(board[0][5]) + " " + str(board[0][6]) + " " + str(board[0][7]) + " " + str(board[0][8]) + " " + str(board[0][9]))
-    
+
+def Setup():
+##initialize board list
+    board = []
+##nested for, creates 10 lists,10 elements in each
+    for i in range(10):
+        new = []
+        for j in range(10):
+            new.append(0)
+        board.append(new)
+##create 2 random numbers between 0 and 9
+##these numbers are coordinates that will pass to the pogIndex
+    val1 = randint(0, 9)
+    val2 = randint(0, 9)
+##create the starting index for the player
+    startIndex = [0,0]
+
+    return [board,val1,val2,startIndex]  
 
 main()
 
