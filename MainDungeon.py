@@ -95,28 +95,6 @@ def UserMove():
         return False
         
 
-##Func asks the user to start the game, returns either 1,2 or false
-def OpeningQuestion():
-
-    while True:
-        try:
-            userSelection = int(input("Welcome to Dungeon Crawler\n1. Start Game\n2.Close Program\n:"))
-        except ValueError:
-            print("Sorry, I didn't understand that.")
-            ##try again, return to the start of while Loop
-            continue
-        else:
-            #userSelection was successfully parsed
-            #exit the loop
-            break
-
-    if userSelection == 1:
-        return 1
-    elif userSelection == 2:
-        return 2
-    else:
-        return False
-
 ##function to initialize new game board
 def SetBoard():
     board = []
@@ -165,6 +143,26 @@ def Setup():
     startIndex = [0,0]
 
     return [board,val1,val2,startIndex]  
+
+##Func prints greeting to user, asks if they wish to play
+##if so func returns True, if not the program terminates 
+def Welcome():
+    print("I hope you're feeling lucky! Would you like to search for the \n\t\t\tPot of Gold?\n\nPress 1 to Start\nPress 2 to Quit\n")
+    while True:
+        try:
+            userInput = int(input(":"))
+        except ValueError:
+            print("Sorry, that isn't a valid input. Try again")
+            continue
+        else:
+            break
+
+    if userInput == 1:
+        print("Welcome to the Hunt! The movements of this game are \n\n\t\t     UP(W)\n\t\tLEFT(A)\tRIGHT(D)\n\t\t    DOWN(S)\n\n" +
+          "You must hit ENTER after every movement selection.")
+        return True
+    else:
+        sys.exit(0)
 
 main()
 
