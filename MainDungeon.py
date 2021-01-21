@@ -27,6 +27,25 @@ def main():
         else:
             print("Sorry, that's an invalid option. Try again.")
 
+
+##def main():
+##    setupVars = []
+##    setupVars = Setup() ##assign the list setupVars to accept the function Setup() list
+##    board = setupVars[0] 
+##    pogIndex1 = setupVars[1]
+##    pogIndex2 = setupVars[2]
+##    userIndex = setupVars[3]
+##    gameOver = False
+##
+##    ##assign a variable to function Welcome
+##    isWelcome = Welcome()
+##
+##    if isWelcome:
+##        ##add userIndex location to gameboard
+##        board[userIndex[0]][userIndex[1]] = 1
+##        ShowBoard(board)
+####        while gameOver == False:
+
 ##Func moves player accross board
 ##if the move is out of the board range it should return as false
 def ChangePosition(direction,cPosition):
