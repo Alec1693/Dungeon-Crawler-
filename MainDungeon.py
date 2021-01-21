@@ -1,50 +1,59 @@
 import sys
-from NPC import NPC
-from GameBoard import GameBoard
 from random import randint
+##
+##def main():
+##    validInput = False
+##    gameOver = False
+##    board = SetBoard()
+##    position = (0,0)
+##    ##set up the gameboard object
+##    realBoard = GameBoard(board,position)
+##    
+##    while validInput == False:
+##        answer = OpeningQuestion()
+##
+##        if answer == 1:
+##            ShowBoard(realBoard.get_board())
+##            ##Open Game Function
+##            moveChoice = UserMove()
+##            realBoard.set_cPosition(ChangePosition(moveChoice,realBoard.get_cPosition())) 
+##            print(str(realBoard.get_cPosition()))
+##            validInput = True
+##        elif answer == 2:
+##            sys.exit(0)
+##            validInput = True
+##        else:
+##            print("Sorry, that's an invalid option. Try again.")
+
 
 def main():
-    validInput = False
+    setupVars = []
+    setupVars = Setup() ##assign the list setupVars to accept the function Setup() list
+    board = setupVars[0] 
+    pogIndex1 = setupVars[1]
+    pogIndex2 = setupVars[2]
+    userIndex = setupVars[3]
     gameOver = False
-    board = SetBoard()
-    position = (0,0)
-    ##set up the gameboard object
-    realBoard = GameBoard(board,position)
-    
-    while validInput == False:
-        answer = OpeningQuestion()
 
-        if answer == 1:
-            ShowBoard(realBoard.get_board())
-            ##Open Game Function
-            moveChoice = UserMove()
-            realBoard.set_cPosition(ChangePosition(moveChoice,realBoard.get_cPosition())) 
-            print(str(realBoard.get_cPosition()))
-            validInput = True
-        elif answer == 2:
-            sys.exit(0)
-            validInput = True
-        else:
-            print("Sorry, that's an invalid option. Try again.")
-
-
-##def main():
-##    setupVars = []
-##    setupVars = Setup() ##assign the list setupVars to accept the function Setup() list
-##    board = setupVars[0] 
-##    pogIndex1 = setupVars[1]
-##    pogIndex2 = setupVars[2]
-##    userIndex = setupVars[3]
-##    gameOver = False
-##
-##    ##assign a variable to function Welcome
-##    isWelcome = Welcome()
-##
-##    if isWelcome:
-##        ##add userIndex location to gameboard
-##        board[userIndex[0]][userIndex[1]] = 1
-##        ShowBoard(board)
-####        while gameOver == False:
+    ##assign a variable to function Welcome
+    isWelcome = Welcome()
+    ##if the user types the correct input Welcome() returns true, and passes through if statement
+    if isWelcome:
+        ##add userIndex location to gameboard
+        board[userIndex[0]][userIndex[1]] = 1
+        ShowBoard(board)
+        while gameOver == False:
+            direction = UserDirection()
+            if direction == 1:
+                ##
+            elif direction == 2:
+                ##
+            elif direction == 3:
+                ##
+            elif direction == 4:
+                ##
+            else:
+                print("That's not a valid direction")
 
 ##Func moves player accross board
 ##if the move is out of the board range it should return as false
@@ -85,55 +94,34 @@ def ChangePosition(direction,cPosition):
     else:
         return False
 
-
-####Function to check bounds of move choice on the board
-##def BoundCheck(direction,board,cPosition):
-##    ##check that bounds arent greater than 9
-##    if board
-
-##This function will get the movement input from the user
-def UserMove():
+##UserDirection function accepts inputs w,a,s,d as directional movement request
+##if the input isn't a string the func notifies the user the input is incorrect/runs until they type a string
+##return int value for direction, or false if no valid input option is selected
+def UserDirection():
     while True:
         try:
-            userSelection = input("Starting point is the bottom left corner.\n You shall type (Left,Right,Up,Down)\nto move across the game board.")
+            userKey = str(input("\n:"))
         except ValueError:
-            print("Sorry, I didn't understand that movement.")
+            print("Sorry, that input is incorrect")
         else:
             break
-    userSelection = userSelection.lower()
+    userKey = userKey.lower()
 
-    if userSelection == "up":
+    if userKey == "w":
         return 1
-    elif userSelection == "down":
+    elif userKey == "s":
         return 2
-    elif userSelection == "left":
+    elif userKey == "a":
         return 3
-    elif userSelection == "right":
+    elif userKey == "d":
         return 4
     else:
         return False
         
 
-##function to initialize new game board
-def SetBoard():
-    board = []
-##steps through 10 times, assigning 10 elements to each for i iteration, then appends each row of 10 elements to the board []
-    for i in range(10):
-        new = []
-        for j in range(10):
-            new.append(0)
-        board.append(new)
-    return board
-        
-
-def StartNPC():
-    npcAlec = NPC("Alec","You found me!",[4,4])
-    npcDakoda = NPC("Dakoda","Wassup brudah :)",[6,7])
-    npcZach = NPC("Zach","Hola Friendo",[5,2])
-
 
 def ShowBoard(board):
-    print("\t  Dungeon Crawler\n" + "\t" + 
+    print("\n\tFind the Pot of Gold\n\n" + "\t" + 
     str(board[9][0]) + " " + str(board[9][1]) + " " + str(board[9][2]) + " " + str(board[9][3]) + " " + str(board[9][4]) + " " + str(board[9][5]) + " " + str(board[9][6]) + " " + str(board[9][7]) + " " + str(board[9][8]) + " " + str(board[9][9]) +
     "\n" + "\t" + str(board[8][0]) + " " + str(board[8][1]) + " " + str(board[8][2]) + " " + str(board[8][3]) + " " + str(board[8][4]) + " " + str(board[8][5]) + " " + str(board[8][6]) + " " + str(board[8][7]) + " " + str(board[8][8]) + " " + str(board[8][9]) +
     "\n" + "\t" + str(board[7][0]) + " " + str(board[7][1]) + " " + str(board[7][2]) + " " + str(board[7][3]) + " " + str(board[7][4]) + " " + str(board[7][5]) + " " + str(board[7][6]) + " " + str(board[7][7]) + " " + str(board[7][8]) + " " + str(board[7][9]) +
