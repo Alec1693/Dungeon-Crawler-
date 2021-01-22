@@ -1,29 +1,5 @@
 import sys
 from random import randint
-##
-##def main():
-##    validInput = False
-##    gameOver = False
-##    board = SetBoard()
-##    position = (0,0)
-##    ##set up the gameboard object
-##    realBoard = GameBoard(board,position)
-##    
-##    while validInput == False:
-##        answer = OpeningQuestion()
-##
-##        if answer == 1:
-##            ShowBoard(realBoard.get_board())
-##            ##Open Game Function
-##            moveChoice = UserMove()
-##            realBoard.set_cPosition(ChangePosition(moveChoice,realBoard.get_cPosition())) 
-##            print(str(realBoard.get_cPosition()))
-##            validInput = True
-##        elif answer == 2:
-##            sys.exit(0)
-##            validInput = True
-##        else:
-##            print("Sorry, that's an invalid option. Try again.")
 
 
 def main():
@@ -45,54 +21,82 @@ def main():
         while gameOver == False:
             direction = UserDirection()
             if direction == 1:
-                ##
+                updateIndex = Move(direction,userIndex)
+                if updateIndex != False:
+                    board[userIndex[0]][userIndex[1]] = 0
+                    board[updateIndex[0]][updateIndex[1]] = 1
+                    ShowBoard(board)
+                    userIndex = updateIndex
+                    break
+                else:
+                    print("You can't move up anymore.")
             elif direction == 2:
-                ##
+                updateIndex = Move(direction,userIndex)
+                if updateIndex != False:
+                    board[userIndex[0]][userIndex[1]] = 0
+                    board[updateIndex[0]][updateIndex[1]] = 1
+                    ShowBoard(board)
+                    userIndex = updateIndex
+                    break
+                else:
+                    print("You can't move down anymore.")
             elif direction == 3:
-                ##
+                updateIndex = Move(direction,userIndex)
+                if updateIndex != False:
+                    board[userIndex[0]][userIndex[1]] = 0
+                    board[updateIndex[0]][updateIndex[1]] = 1
+                    ShowBoard(board)
+                    userIndex = updateIndex
+                    break
+                else:
+                    print("You can't move left anymore.")
             elif direction == 4:
-                ##
+                updateIndex = Move(direction,userIndex)
+                if updateIndex != False:
+                    board[userIndex[0]][userIndex[1]] = 0
+                    board[updateIndex[0]][updateIndex[1]] = 1
+                    ShowBoard(board)
+                    userIndex = updateIndex
+                    break
+                else:
+                    print("You can't move right anymore.")
             else:
                 print("That's not a valid direction")
 
-##Func moves player accross board
-##if the move is out of the board range it should return as false
-def ChangePosition(direction,cPosition):
+def Move(direction,userIndex):
     if direction == 1:
-        ##move up
-        tempVal = cPosition[0]
-        tempVal += 1
-        if cPosition[tempVal] >= 10:
-            ##out of range
+        tempIndex = userIndex[0]
+        tempIndex += 1
+        if userIndex[tempIndex] > 9:
             return False
         else:
-            return cPosition[tempVal]
+            userIndex[0] = tempIndex
+            return userIndex
     elif direction == 2:
-        ##move down
-        tempVal = cPosition[0]
-        tempVal -= 1
-        if cPosition[tempVal] < 0:
+        tempIndex = userIndex[0]
+        tempIndex -= 1
+        if userIndex[tempIndex] < 0:
             return False
         else:
-            return cPosition[tempVal]
+            userIndex[0] = tempIndex
+            return userIndex
     elif direction == 3:
-        ##move left
-        tempVal = cPosition[1]
-        tempVal -= 1
-        if cPosition[tempVal] < 0:
+        tempIndex = userIndex[1]
+        tempIndex -= 1
+        if userIndex[tempIndex] < 0:
             return False
         else:
-            return cPosition[tempVal]
+            userIndex[1] = tempIndex
+            return userIndex
     elif direction == 4:
-        ##move right
-        tempVal = cPosition[1]
-        tempVal += 1
-        if cPosition[tempVal] >= 10:
+        tempIndex = userIndex[1]
+        tempIndex += 1
+        if userIndex[tempIndex] > 9:
             return False
         else:
-            return cPosition[tempVal]
-    else:
-        return False
+            userIndex[1] = tempIndex
+            return userIndex
+
 
 ##UserDirection function accepts inputs w,a,s,d as directional movement request
 ##if the input isn't a string the func notifies the user the input is incorrect/runs until they type a string
