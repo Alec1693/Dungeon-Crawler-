@@ -6,17 +6,16 @@ def main():
     setupVars = []
     setupVars = Setup() ##assign the list setupVars to accept the function Setup() list
     board = setupVars[0] ##2d board array is the first element of setupVars, create variable to hold this list index
-    pogIndex1 = setupVars[1] ##first index value of where pot of gold is located
-    pogIndex2 = setupVars[2] ##second
-    userIndex = setupVars[3] ##userIndex 0,0
+    pogIndex = setupVars[1] ##first index value of where pot of gold is located
+    userIndex = setupVars[2] ##userIndex 0,0
     gameOver = False ##bool variable to check if game is complete before running main again
-
+    print(str(pogIndex))
+    board[userIndex[0]][userIndex[1]] = 1 ##denotes the location of user on the board, starting location 0,0 now displays 1
     ##assign a variable to function Welcome
     isWelcome = Welcome()
     ##if the user types the correct input Welcome() returns true, and passes through if statement
     if isWelcome:
         ##add userIndex location to gameboard
-        board[userIndex[0]][userIndex[1]] = 1 ##denotes the location of user on the board, starting location 0,0 now displays 1
         ShowBoard(board)
         while gameOver == False: 
             direction = UserDirection() ##map the func call UserDirection to a variable to hold the direction they select
@@ -26,7 +25,11 @@ def main():
                     board = SwapSpaces(board,userIndex,updateIndex) ##func supposed to swap 1 and 0 locations for the current user index
                     ShowBoard(board)
                     userIndex = updateIndex ##change the users index to the updated index location
+                    print(str(userIndex))
                     ##check if the location is the pot of gold
+                    if userIndex == pogIndex:
+                        print("You won!")
+                        gameOver = True
                     ##if so change gameOver bool to True
                 else:
                     print("You can't move up anymore.")
@@ -36,6 +39,7 @@ def main():
                     board = SwapSpaces(board,userIndex,updateIndex)
                     ShowBoard(board)
                     userIndex = updateIndex
+                    print(str(userIndex))
                 else:
                     print("You can't move down anymore.")
             elif direction == 3:
@@ -44,6 +48,7 @@ def main():
                     board = SwapSpaces(board,userIndex,updateIndex)
                     ShowBoard(board)
                     userIndex = updateIndex
+                    print(str(userIndex))
                 else:
                     print("You can't move left anymore.")
             elif direction == 4:
@@ -52,6 +57,7 @@ def main():
                     board = SwapSpaces(board,userIndex,updateIndex)
                     ShowBoard(board)
                     userIndex = updateIndex
+                    print(str(userIndex))
                 else:
                     print("You can't move right anymore.")
             else:
@@ -66,9 +72,7 @@ def SwapSpaces(board,userIndex,updateIndex):
 def Move(direction,userIndex):
     if direction == 1:##
         tempIndex = userIndex[0] ##hold the value of the current index in a temp location
-        print(str(tempIndex))
         tempIndex += 1##increment the temp index by 1 since movement is up
-        print(str(tempIndex))
         if tempIndex > 9: ##if the temp Index is more than 9 it is out of bounds
             return False
         else:
@@ -152,10 +156,11 @@ def Setup():
 ##these numbers are coordinates that will pass to the pogIndex
     val1 = randint(0, 9)
     val2 = randint(0, 9)
+    pogIndex = [val1,val2]
 ##create the starting index for the player
     startIndex = [0,0]
 
-    return [board,val1,val2,startIndex]  
+    return [board,pogIndex,startIndex]  
 
 ##Func prints greeting to user, asks if they wish to play
 ##if so func returns True, if not the program terminates 
