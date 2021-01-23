@@ -5,77 +5,79 @@ from random import randint
 def main():
     setupVars = []
     setupVars = Setup() ##assign the list setupVars to accept the function Setup() list
-    board = setupVars[0] 
-    pogIndex1 = setupVars[1]
-    pogIndex2 = setupVars[2]
-    userIndex = setupVars[3]
-    gameOver = False
+    board = setupVars[0] ##2d board array is the first element of setupVars, create variable to hold this list index
+    pogIndex1 = setupVars[1] ##first index value of where pot of gold is located
+    pogIndex2 = setupVars[2] ##second
+    userIndex = setupVars[3] ##userIndex 0,0
+    gameOver = False ##bool variable to check if game is complete before running main again
 
     ##assign a variable to function Welcome
     isWelcome = Welcome()
     ##if the user types the correct input Welcome() returns true, and passes through if statement
     if isWelcome:
         ##add userIndex location to gameboard
-        board[userIndex[0]][userIndex[1]] = 1
+        board[userIndex[0]][userIndex[1]] = 1 ##denotes the location of user on the board, starting location 0,0 now displays 1
         ShowBoard(board)
-        while gameOver == False:
-            direction = UserDirection()
-            if direction == 1:
-                updateIndex = Move(direction,userIndex)
+        while gameOver == False: 
+            direction = UserDirection() ##map the func call UserDirection to a variable to hold the direction they select
+            if direction == 1:##Up direction
+                updateIndex = Move(direction,userIndex) ##map func Move to a variable that holds the updated index if the index location is valid, if not it returns false
                 if updateIndex != False:
-                    board[userIndex[0]][userIndex[1]] = 0
-                    board[updateIndex[0]][updateIndex[1]] = 1
+                    board = SwapSpaces(board,userIndex,updateIndex) ##func supposed to swap 1 and 0 locations for the current user index
                     ShowBoard(board)
-                    userIndex = updateIndex
-                    break
+                    userIndex = updateIndex ##change the users index to the updated index location
+                    ##check if the location is the pot of gold
+                    ##if so change gameOver bool to True
                 else:
                     print("You can't move up anymore.")
             elif direction == 2:
                 updateIndex = Move(direction,userIndex)
                 if updateIndex != False:
-                    board[userIndex[0]][userIndex[1]] = 0
-                    board[updateIndex[0]][updateIndex[1]] = 1
+                    board = SwapSpaces(board,userIndex,updateIndex)
                     ShowBoard(board)
                     userIndex = updateIndex
-                    break
                 else:
                     print("You can't move down anymore.")
             elif direction == 3:
                 updateIndex = Move(direction,userIndex)
                 if updateIndex != False:
-                    board[userIndex[0]][userIndex[1]] = 0
-                    board[updateIndex[0]][updateIndex[1]] = 1
+                    board = SwapSpaces(board,userIndex,updateIndex)
                     ShowBoard(board)
                     userIndex = updateIndex
-                    break
                 else:
                     print("You can't move left anymore.")
             elif direction == 4:
                 updateIndex = Move(direction,userIndex)
                 if updateIndex != False:
-                    board[userIndex[0]][userIndex[1]] = 0
-                    board[updateIndex[0]][updateIndex[1]] = 1
+                    board = SwapSpaces(board,userIndex,updateIndex)
                     ShowBoard(board)
                     userIndex = updateIndex
-                    break
                 else:
                     print("You can't move right anymore.")
             else:
                 print("That's not a valid direction")
 
+def SwapSpaces(board,userIndex,updateIndex):
+    newBoard = Setup() ##create a new var to grab a new board array
+    newBoard = newBoard[0]
+    newBoard[updateIndex[0]][updateIndex[1]] = 1
+    return newBoard
+
 def Move(direction,userIndex):
-    if direction == 1:
-        tempIndex = userIndex[0]
-        tempIndex += 1
-        if userIndex[tempIndex] > 9:
+    if direction == 1:##
+        tempIndex = userIndex[0] ##hold the value of the current index in a temp location
+        print(str(tempIndex))
+        tempIndex += 1##increment the temp index by 1 since movement is up
+        print(str(tempIndex))
+        if tempIndex > 9: ##if the temp Index is more than 9 it is out of bounds
             return False
         else:
-            userIndex[0] = tempIndex
+            userIndex[0] = tempIndex ##the temp index is in bounds, so we change the value of the userIndex to hold next move(tempIndex)
             return userIndex
     elif direction == 2:
         tempIndex = userIndex[0]
         tempIndex -= 1
-        if userIndex[tempIndex] < 0:
+        if tempIndex < 0:
             return False
         else:
             userIndex[0] = tempIndex
@@ -83,7 +85,7 @@ def Move(direction,userIndex):
     elif direction == 3:
         tempIndex = userIndex[1]
         tempIndex -= 1
-        if userIndex[tempIndex] < 0:
+        if tempIndex < 0:
             return False
         else:
             userIndex[1] = tempIndex
@@ -91,7 +93,7 @@ def Move(direction,userIndex):
     elif direction == 4:
         tempIndex = userIndex[1]
         tempIndex += 1
-        if userIndex[tempIndex] > 9:
+        if tempIndex > 9:
             return False
         else:
             userIndex[1] = tempIndex
