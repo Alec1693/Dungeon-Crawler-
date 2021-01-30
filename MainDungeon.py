@@ -28,8 +28,10 @@ def main():
                     print(str(userIndex))
                     ##check if the location is the pot of gold
                     if userIndex == pogIndex:
-                        print("You won!")
                         gameOver = True
+                        print("You won")
+                        break
+
                     ##if so change gameOver bool to True
                 else:
                     print("You can't move up anymore.")
