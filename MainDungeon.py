@@ -9,7 +9,6 @@ def main():
     pogIndex = setupVars[1] ##first index value of where pot of gold is located
     userIndex = setupVars[2] ##userIndex 0,0
     gameOver = False ##bool variable to check if game is complete before running main again
-    print(str(pogIndex))
     board[userIndex[0]][userIndex[1]] = 1 ##denotes the location of user on the board, starting location 0,0 now displays 1
     ##assign a variable to function Welcome
     isWelcome = Welcome()
@@ -29,7 +28,7 @@ def main():
                     ##check if the location is the pot of gold
                     if userIndex == pogIndex:
                         gameOver = True
-                        print("You won")
+                        WinnerDisplay()
                         break
 
                     ##if so change gameOver bool to True
@@ -42,6 +41,11 @@ def main():
                     ShowBoard(board)
                     userIndex = updateIndex
                     print(str(userIndex))
+                    ##check if the location is the pot of gold
+                    if userIndex == pogIndex:
+                        gameOver = True
+                        WinnerDisplay()
+                        break
                 else:
                     print("You can't move down anymore.")
             elif direction == 3:
@@ -51,6 +55,11 @@ def main():
                     ShowBoard(board)
                     userIndex = updateIndex
                     print(str(userIndex))
+                    ##check if the location is the pot of gold
+                    if userIndex == pogIndex:
+                        gameOver = True
+                        WinnerDisplay()
+                        break
                 else:
                     print("You can't move left anymore.")
             elif direction == 4:
@@ -60,10 +69,22 @@ def main():
                     ShowBoard(board)
                     userIndex = updateIndex
                     print(str(userIndex))
+                    ##check if the location is the pot of gold
+                    if userIndex == pogIndex:
+                        gameOver = True
+                        WinnerDisplay()
+                        break
                 else:
                     print("You can't move right anymore.")
+            elif direction == 5:
+                print("I guess I can help you cheat >;).. \nThe Pot of Gold Location is " + str(pogIndex))
             else:
                 print("That's not a valid direction")
+
+def WinnerDisplay():
+    message = print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nYou found the Pot of Gold!! \n\nNow take your loot and scram!")
+    return message
+
 
 def SwapSpaces(board,userIndex,updateIndex):
     newBoard = Setup() ##create a new var to grab a new board array
@@ -127,6 +148,8 @@ def UserDirection():
         return 3
     elif userKey == "d":
         return 4
+    elif userKey == "h":
+        return 5
     else:
         return False
         
@@ -179,7 +202,7 @@ def Welcome():
 
     if userInput == 1:
         print("Welcome to the Hunt! The movements of this game are \n\n\t\t     UP(W)\n\t\tLEFT(A)\tRIGHT(D)\n\t\t    DOWN(S)\n\n" +
-          "You must hit ENTER after every movement selection.")
+          "You must hit ENTER after every movement selection.\n\nP.S. If you want to cheat and reveal the Pot of Gold location, type H")
         return True
     else:
         sys.exit(0)
